@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Calendar</title>
+  <style>
+    body { text-align: center; font-family: sans-serif; }
+    table { border-collapse: collapse; margin: 10px auto; }
+    th, td { border: 1px solid #000; width: 40px; height: 40px; text-align: center; }
+  </style>
+</head>
+<body>
+  <h2>Generate Calendar for a Year</h2>
+  <input type="number" id="year" placeholder="Enter year">
+  <button onclick="genCal()">Generate</button>
+  <div id="cal"></div>
+
+  <script>
+    function genCal() {
+      const y = +document.getElementById("year").value;
+      if (y < 1000 || y > 9999) return alert("Enter year 1000–9999!");
+      const mNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      let out = `<h2>Calendar for ${y}</h2>`;
+      for (let m = 0; m < 12; m++) {
+        const first = new Date(y, m, 1).getDay(), days = new Date(y, m+1, 0).getDate();
+        out += `<table><tr><th colspan=7>${mNames[m]} ${y}</th></tr>
+                <tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr><tr>`;
+        for (let i = 0; i < first; i++) out += "<td></td>";
+        for (let d = 1; d <= days; d++) {
+          if ((first + d - 1) % 7 === 0 && d !== 1) out += "</tr><tr>";
+          out += `<td>${d}</td>`;
+        }
+        out += "</tr></table>";
+      }
+      document.getElementById("cal").innerHTML = out;
+    }
+  </script>
+</body>
+</html>
+
