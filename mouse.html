@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body><center>
+    <h2 id="text">Hover over this content to see magic!</h2>
+    <img id="img" src="img1.jpg" alt="img" width="250" 
+         onmouseover="myfn1()" 
+         onmouseout="myfn2()">
+
+    <script>
+        function myfn1() {
+            document.getElementById("text").innerHTML = "You hovered over the content!";
+            document.getElementById("img").src = "img3.jpg"; // make sure the file exists
+        }
+
+        function myfn2() {
+            document.getElementById("text").innerHTML = "Hover over the content to see the magic!";
+            document.getElementById("img").src = "img1.jpg"; // make sure the file exists
+        }
+    </script></center>
+</body>
+</html>
