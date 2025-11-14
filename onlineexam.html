@@ -1,0 +1,138 @@
+<html>
+<body>
+<center><h2>ONLINE EXAM</h2>
+<p id="timer"></p>
+
+<form id="examform">
+<p>Register Number:
+<input type="text" id="reg" required><br></p>
+</center>
+<h3>1. what is  the root of 625?</h3>
+<input type="radio" name="q1" value="a">15<br>
+<input type="radio" name="q1" value="b">25<br>
+<input type="radio" name="q1" value="c">35<br>
+<input type="radio" name="q1" value="d">20<br>
+
+<h3>2. which is konwn as brain of computer?</h3>
+<input type="radio" name="q2" value="a">CPU<br>
+<input type="radio" name="q2" value="b">RAM<br>
+<input type="radio" name="q2" value="c">HARD DISC<br>
+<input type="radio" name="q2" value="d">MONITER<br>
+
+<h3>3. What does HTML stand for?</h3>
+<input type="radio" name="q3" value="HTML">Hyper Text Markup Language<br>
+<input type="radio" name="q3" value="home">Home Tool Markup Language<br>
+<input type="radio" name="q3" value="hyper">Hyperlinks and Text Markup Language<br>
+<input type="radio" name="q3" value="tool">Hyper Tool Multi Language<br>
+
+<h3>4. What is 2 + 2?</h3>
+<input type="radio" name="q4" value="4">4<br>
+<input type="radio" name="q4" value="1">1<br>
+<input type="radio" name="q4" value="3">3<br>
+<input type="radio" name="q4" value="7">7<br>
+
+<h3>5. What will typeof null return?</h3>
+<input type="radio" name="q5" value="null">null<br>
+<input type="radio" name="q5" value="object">object<br>
+<input type="radio" name="q5" value="u">undefiend<br>
+<input type="radio" name="q5" value="s">string<br>
+
+<h3>6. What will console.log(2 + '2') output?</h3>
+<input type="radio" name="q6" value="NaN">NaN<br>
+<input type="radio" name="q6" value="4">4<br>
+<input type="radio" name="q6" value="EOOROR">error<br>
+<input type="radio" name="q6" value="22">22<br>
+
+<h3>7. What keyword stops a loop in JavaScript?</h3>
+<input type="radio" name="q7" value="continue">continue<br>
+<input type="radio" name="q7" value="break">break<br>
+<input type="radio" name="q7" value="exit">exit<br>
+<input type="radio" name="q7" value="stop">stop<br>
+
+<h3>8. Which operator is used to assign a value to a variable?</h3>
+<input type="radio" name="q8" value="=">=<br>
+<input type="radio" name="q8" value="+">+<br>
+<input type="radio" name="q8" value="==">==<br>
+<input type="radio" name="q8" value="*">*<br>
+
+<h3>9. What does NaN stand for?</h3>
+<input type="radio" name="q9" value="Not a Null">Not a Null<br>
+<input type="radio" name="q9" value="Not a Number">Not a Number<br>
+<input type="radio" name="q9" value="Name a Number">Name a Number<br>
+<input type="radio" name="q9" value="Negative a Number">Negative a Number<br>
+
+<h3>10.Which method adds an element to the end of an array?</h3>
+<input type="radio" name="q10" value="push()">push()<br>
+<input type="radio" name="q10" value="pop()">pop()<br>
+<input type="radio" name="q10" value="shift()">shift()<br>
+<input type="radio" name="q10" value="unshift()">unshift()<br>
+
+<button type="button" onclick="submitExam()">Submit</button>
+<button type="reset">Reset</button>
+</form>
+
+<h3 id="result"></h3>
+
+<script>
+let timeLeft = 60;
+let timer;
+
+function startTimer() {
+  clearInterval(timer);
+  timeLeft = 60;
+  document.getElementById("timer").innerHTML = " Time Left: " + timeLeft + " seconds";
+  
+  timer = setInterval(function(){
+    if(timeLeft > 0){
+      document.getElementById("timer").innerHTML = "Time Left: " + timeLeft + " seconds";
+      timeLeft--;
+    } else {
+      clearInterval(timer);
+      alert(" Time up! Submitting your exam automatically.");
+      submitExam();
+    }
+  }, 1000);
+}
+
+startTimer(); // start on load
+
+function submitExam(){
+    let score = 0;
+    let regNum = document.getElementById("reg").value;
+    if (regNum === ""){
+        alert("Please enter your register number");
+        return;
+    }
+
+    // correct answers
+    const answers = {
+        q1: "b",
+        q2: "a",
+        q3: "HTML",
+        q4: "4",
+        q5: "object",
+        q6: "22",
+        q7: "break",
+        q8: "=",
+        q9: "Not a Number",
+        q10: "push()"
+    };
+
+    for (let i = 1; i <= 10; i++) {
+        let q = document.querySelector(`input[name="q${i}"]:checked`);
+        if (q && q.value === answers[`q${i}`]) {
+            score++;
+        }
+    }
+
+    alert("Register No: " + regNum + "\n Your Score: " + score + "/10");
+
+    clearInterval(timer);
+    document.getElementById("examform").reset();
+    document.getElementById("result").innerHTML = "";
+    startTimer(); 
+}
+</script>
+</body>
+</html>
+
